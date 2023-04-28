@@ -9,13 +9,15 @@ pipeline {
             }
         }
 
-        stage('MAVEN') {
+      stage('MAVEN') {
             steps {
-                def mavenHome = tool name: 'maven', type: 'maven'
-                def mavenCMD = "${mavenHome}/bin/mvn clean package"
-                sh "${mavenCMD}"
+                // Set up Maven and build the project
+                def mavenHome =tool name:”maven”,type:”maven”
+      def mavenCMD =”${mavenHome}/bin/mvn clean package”
+      sh”${mavenCMD}”
             }
         }
+
 
         stage('Tomcat Deployment') {
             steps {
