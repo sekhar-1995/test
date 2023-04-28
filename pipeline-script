@@ -5,7 +5,7 @@ pipeline {
         maven "maven"
         jdk "jdk11"
     }
-
+stages{
 stage('gitrepo') {
       https://github.com/sekhar-1995/jenkins-pipeline-project.git’
       }
@@ -19,4 +19,4 @@ stage(‘Tomcat Deployment’){
 deploy adapters: [tomcat9(credentialsId: 'for-jekins-pipeline-job', path: '', url: 'http://18.212.216.43:8080/')], contextPath: null, onFailure: false, war: '*/*.war'
 }
 }
-
+}
