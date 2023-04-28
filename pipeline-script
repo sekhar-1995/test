@@ -1,16 +1,17 @@
 pipeline {
     agent any
        tools {
-    git 'git'
+    git 'my-git'
   }
     
-    stages {
-        stage('gitrepo') {
-            steps {
-                // Clone the Git repository
-                git 'https://github.com/sekhar-1995/jenkins-pipeline-project.git'
-            }
-        }
+   stages {
+    stage('gitrepo') {
+      steps {
+        // Checkout the Git repository
+        checkout([$class: 'GitSCM', branches: [[name: 'jenkins-pipeline']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/sekhar-1995/jenkins-pipeline-project.git']]])
+      }
+    }
+
         
         stage('MAVEN') {
             steps {
