@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('gitrepo') {
             steps {
@@ -8,23 +8,23 @@ pipeline {
                 git 'https://github.com/sekhar-1995/jenkins-pipeline-project.git'
             }
         }
-        
-        stage('MAVEN') {
-	 steps {
-           def mavenHome =tool name:”maven”,type:”maven”
-           def mavenCMD =”${mavenHome}/bin/mvn clean package”
-           sh”${mavenCMD}”
-               }
 
+        stage('MAVEN') {
+            steps {
+                def mavenHome = tool name: "maven", type: "maven"
+                def mavenCMD = "${mavenHome}/bin/mvn clean package"
+                sh "${mavenCMD}"
             }
         }
-        
+
         stage('Tomcat Deployment') {
-	 steps {
-deploy adapters: [tomcat9(credentialsId: 'for-jekins-pipeline-job', path: '', url: 'http://18.212.216.43:8080/')], contextPath: null, onFailure: false, war: '*/*.war'
-           }
+            steps {
+                deploy adapters: [tomcat9(credentialsId: 'for-jekins-pipeline-job', path: '', url: 'http://18.212.216.43:8080/')], contextPath: null, onFailure: false, war: '*/*.war'
+            }
         }
     }
+}
+
 
 
 
