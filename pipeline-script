@@ -1,4 +1,12 @@
-stage(‘git repo’) {
+pipeline {
+    agent any
+
+    tools {
+        maven "maven"
+        jdk "jdk11"
+    }
+
+stage('gitrepo') {
       https://github.com/sekhar-1995/jenkins-pipeline-project.git’
 }
 
