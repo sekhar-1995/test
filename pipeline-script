@@ -1,22 +1,37 @@
 pipeline {
     agent any
-
+    
     tools {
         maven "maven"
         jdk "jdk11"
     }
-stages{
-stage('gitrepo') {
-      https://github.com/sekhar-1995/jenkins-pipeline-project.git’
-      }
-
-stage(‘MAVEN’){
-def mavenHome =tool name:”maven”,type:”maven”
-def mavenCMD =”${mavenHome}/bin/mvn clean package”
-sh”${mavenCMD}”
-}
-stage(‘Tomcat Deployment’){
+    
+    stages {
+        stage('gitrepo') {
+            steps {
+                // Clone the Git repository
+                git 'https://github.com/sekhar-1995/jenkins-pipeline-project.git'
+            }
+        }
+        
+        stage('MAVEN') {
+            steps {
+                // Set up Maven and build the project
+                withMaven(maven: 'maven') {
+                    sh 'mvn clean package'
+                }
+            }
+        }
+        
+        stage('Tomcat Deployment') {
+            steps {
+                // Deploy the WAR file to Tomcat
 deploy adapters: [tomcat9(credentialsId: 'for-jekins-pipeline-job', path: '', url: 'http://18.212.216.43:8080/')], contextPath: null, onFailure: false, war: '*/*.war'
+
+            }
+        }
+    }
 }
-}
-}
+
+
+
