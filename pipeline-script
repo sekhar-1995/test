@@ -8,7 +8,7 @@ pipeline {
 
 stage('gitrepo') {
       https://github.com/sekhar-1995/jenkins-pipeline-project.git’
-}
+      }
 
 stage(‘MAVEN’){
 def mavenHome =tool name:”maven”,type:”maven”
